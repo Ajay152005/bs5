@@ -1,25 +1,28 @@
 // generate a random number between 1 and 100
-const randomNumber = Math.floor(Math.random() * 100)+1;
+let randomNumber = Math.floor(Math.random() * 100)+1;
 
 // Function to check the user's guess
 let attempts = 0;
-let maxAttempts = 5;
-let maxAtemptsInput = document.getElementById("maxAttemptsInput");
+let maxAttemptsInput = document.getElementById("maxAttemptsInput");
 let saveMaxAttemptsBtn = document.getElementById("saveMaxAttempts");
 let newGameBtn = document.getElementById("newGameBtn");
 
 //function to save the selected maximum attempts values and hide the input field
 function saveMaxAttemptsBtn1() {
-    let maxAtempts = parseInt(maxAtemptsInput.value)
+    let maxAttempts = parseInt(maxAttemptsInput.value)
     // Validate the input value
-    if (maxAtempts > 0) {
-        maxAttemptsInput.disabled = true;
-        //saveMaxAttemptsBtn.style.display = "none";
+    if (maxAttempts > 0) {
+        maxAttemptsInput.style.display = "none";
+        iatt = document.getElementById("iatt");
+        datt = document.getElementById("datt");
+        datt.style.display = "none";
+        saveMaxAttemptsBtn.style.display = "none";
         //save the maximum attempts value to use during the game
         // you can store it in a global variable or wherever you prefer
         console.log("Maximum attempts saved: ", maxAttempts);
         localStorage.setItem("maxAttempts", maxAttempts);
-        saveMaxAttemptsBtn.style.display.disabled = True;
+        // saveMaxAttemptsBtn.style.display.disabled = true;
+        return maxAttempts;
     } else {
         alert("please enter a valid number of attempts.")
     }
@@ -35,14 +38,14 @@ function checkGuess() {
     const attemptsDisplay = document.getElementById("attempts");
 
     // Increment the number of attempts
-    attempts++;
+    
 
     // Display the number of attempts
 
     attemptsDisplay.textContent = `Attempts: ${attempts}`
 
     
-
+    maxAttempts = saveMaxAttemptsBtn1();
     //check if the guess is correct
 
     if (guess === randomNumber) {
@@ -53,11 +56,14 @@ function checkGuess() {
     } else {
         feedback.textContent = "Too high! Try a lower number.";
     }
-    
-    // check if the user has reached the maximum number of attempts
     if (attempts >= maxAttempts){
-       gameOver();
-    }
+        gameOver();
+     }
+    if (attempts <= maxAttempts){
+        attempts++;}
+    // check if the user has reached the maximum number of attempts
+
+
     // clear the input field
     guessInput.value = "";
 }
@@ -67,6 +73,7 @@ function newGame() {
     // Reset the number of attempts
     attempts = 0;
     maxAttemptsInput.disabled = false;
+    maxAttemptsInput.style.display = "";
     saveMaxAttemptsBtn.style.display = "inline-block";
     // reset the feedback and attempts display
     document.getElementById("feedback").textContent = "";
@@ -84,7 +91,6 @@ function gameOver() {
     document.getElementById("feedback").textContent = `Game over! The correct number was ${randomNumber}.`;
 
     // Disable the input field and submit button
-    document.getElementById("guessInput").disabled = True;
-    submitGuessBtn.disabled = true;
+    document.getElementById("guessInput").disabled = true;
     newGameBtn.style.display = "inline-block";
 }
