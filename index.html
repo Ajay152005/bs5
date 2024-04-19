@@ -9,8 +9,9 @@
     <body>
         <div class="container">
             <h1>Number Guessing Game</h1>
+            <div class="game-container">
             <p>Guess a number between 1 and 100:</p>
-            <input type="number" id="guessInput">
+            <input type="number" id="guessInput" placeholder="Ënter your guess">
             <button onclick="checkGuess()">Submit Guess</button>
             <p id="feedback"></p>
             <p id = "attempts"></p>
@@ -18,6 +19,7 @@
             <input type="number" id = "maxAttemptsInput" value = "5" min="1">
             <button id = "saveMaxAttempts" onclick = "saveMaxAttemptsBtn1()">Save Maximum Attempts</button>
             <button id = "newGameBtn" onclick="newGame()">New Game</button>
+            </div>
         </div>
         <script src="script.js"></script>
     </body>
